@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/itertools.dir/main.cpp.o  -o itertools 
