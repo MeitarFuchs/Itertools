@@ -9,7 +9,7 @@ namespace itertools {
         class iterator {
             int *current;
         public:
-            iterator(int currToBe = 0) : current(currToBe) {}
+            iterator(int *currToBe = 0) : current(currToBe) {}
 
             iterator &operator++() { //++i
                 *current+= 1;
@@ -23,11 +23,11 @@ namespace itertools {
             }
 
             bool operator==(const iterator &it) const {
-                return it.current==*current;
+                return *(it.current) == *current;
             }
 
             bool operator!=(const iterator &it) const {
-                return it.current!=*current;
+                return *(it.current)!=*current;
             }
 
             int operator*(){
@@ -37,12 +37,17 @@ namespace itertools {
         };
 
         iterator begin() {
-            return iterator(first);
+            return iterator(&first);
         }
 
         iterator end() {
-            return iterator(last);// maybe last-1
+            return iterator(&last);// maybe last-1
         }
+
+
+
+
+        typedef int value_type;
 
     };
 }

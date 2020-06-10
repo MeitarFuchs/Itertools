@@ -9,12 +9,12 @@ namespace itertools {
     public:
         accumulate(const T& contain): container(contain){}
 
-        class iterator{
-            T sum=0;
-            T* current;
+        template<class E> class iterator{
+            int sum;
+            E& current;
 
         public:
-            iterator(const T* it) :current(it){
+            iterator(const E& it) :current(it){
                 if (it!=NULL)
                     sum=*it;
             }
@@ -26,7 +26,7 @@ namespace itertools {
             }
 
             const iterator operator++(int){
-                iterator temp = *this;
+                iterator temp= *this;
                 ++current;
                 sum+=*current;
                 return temp;
@@ -46,13 +46,11 @@ namespace itertools {
 
         };
 
-
-
         iterator<T> begin() {
-            return iterator<T>(&container[0]);
+            return iterator<T>(container.begin());
         }
         iterator<T> end() {
-            return iterator<T>(nullptr);
+            return iterator<T>(container.end());
         }
     };
 

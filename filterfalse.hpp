@@ -11,7 +11,7 @@ namespace itertools{
 
         for( decltype(typename CONT::value_type()) curr : container ) {
             if( !(func(curr) ))  // !- because we want the i that does not answer the func
-                ansV.push_back(i);
+                ansV.push_back(curr);
         }
         return ansV;
     }

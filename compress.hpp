@@ -5,28 +5,28 @@ namespace itertools{
     template<typename CONT,typename CONTB>
     class compress {
         CONT container;
-        CONTB ContainerBoolean;
+        CONTB containerBoolean;
 
-        decltype typename CONT::value_type() value_type; // to know the type of the first container
+        typedef typename CONT::value_type value_type; // to know the type of the first container
 
     public:
-        compress(CONT cont, CONT cont)B: container(cont),containerBoolean(contB){} //constractor
+        compress(CONT cont, CONTB contB): container(cont),containerBoolean(contB){} //constractor
 
         class iterator{
-            typename CONT1::iterator it;
+            typename CONT::iterator it;
             typename CONT::iterator itAnsCont;
 
-            typename CONT2::iterator itBool;
+            typename CONTB::iterator itBool;
 
         public:
 
             explicit iterator(typename CONT::iterator it, typename CONT::iterator ansIt, typename CONTB::iterator itBool)
-            }
+            {            }
 
             iterator(const iterator& other) = default;
 
             iterator& operator=(const iterator& other){
-                return *this;
+                return this;
             };
             iterator& operator ++(){
                 return *this;
