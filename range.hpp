@@ -7,45 +7,42 @@ namespace itertools {
         range(int f, int l) : first(f), last(l) {}
 
         class iterator {
-            int *current;
+            int current;
         public:
-            iterator(int *currToBe = 0) : current(currToBe) {}
+            iterator(int currToBe = 0) : current(currToBe) {}
 
             iterator &operator++() { //++i
-                *current+= 1;
+                current+= 1;
                 return *this; // return with the update value
             }
 
             const iterator operator++(int) { //i++
                 iterator temp= *this; //????????????????????????????????????
-                *current+= 1;
+                current+= 1;
                 return temp; // return the value before we update
             }
 
             bool operator==(const iterator &it) const {
-                return *(it.current) == *current;
+                return (it.current)==current;
             }
 
             bool operator!=(const iterator &it) const {
-                return *(it.current)!=*current;
+                return (it.current)!=current;
             }
 
             int operator*(){
-                return *current;
+                return current;
             }
 
         };
 
-        iterator begin() {
-            return iterator(&first);
+        iterator begin() const {
+            return iterator(first);
         }
 
-        iterator end() {
-            return iterator(&last);// maybe last-1
+        iterator end() const{
+            return iterator(last);// maybe last-1
         }
-
-
-
 
         typedef int value_type;
 

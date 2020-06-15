@@ -1,57 +1,64 @@
 #include <iostream>
 #include <vector>
+using namespace std;
 
 namespace itertools{
-    template<typename CONT,typename CONTB>
-    class compress {
-        CONT container;
-        CONTB containerBoolean;
-
-        typedef typename CONT::value_type value_type; // to know the type of the first container
+    template <typename T1 , typename T2>
+    class compress{
+        const T1& container1;
+        const T2& container2;
 
     public:
-        compress(CONT cont, CONTB contB): container(cont),containerBoolean(contB){} //constractor
+        compress(const T1& cont1,const T2& cont2) :container1(cont1),container2(cont2){}
 
         class iterator{
-            typename CONT::iterator it;
-            typename CONT::iterator itAnsCont;
-
-            typename CONTB::iterator itBool;
+            decltype(container1.begin()) it1;
+            decltype(container2.begin()) it2;
+            const compress& compr;
 
         public:
+            iterator(decltype(container1.begin()) itA , decltype(container2.begin()) itB , const compress& com) :it1(itA) , it2(itB) , compr(com){
+                while(it2!=compr.container2.end() && *it2==false) {
+                    it1++;
+                    it2++;
+                }
+            }
 
-            explicit iterator(typename CONT::iterator it, typename CONT::iterator ansIt, typename CONTB::iterator itBool)
-            {            }
-
-            iterator(const iterator& other) = default;
-
-            iterator& operator=(const iterator& other){
-                return this;
-            };
-            iterator& operator ++(){
+            iterator& operator++(){
+                ++it1;
+                ++it2;
                 return *this;
             }
-            iterator operator ++(int){
-                iterator tmp = *this;
-                ++(*this);
-                return tmp;
+
+            const iterator operator++(int) {
+                iterator tempIt= *this;
+                ++it1;
+                ++it2;
+                return tempIt;
             }
-            bool operator ==(const iterator& other) {
-                return true;
+
+            bool operator==(const iterator& itA) const{
+                return it1==itA.it1;
             }
-            bool operator !=(const iterator& other) {
-                return true;
+
+            bool operator!=(const iterator& itA) const{
+                return it1!=itA.it1;
             }
-            value_type operator *(){
-                return *it;
+
+            auto operator*(){
+                return *it1;
             }
 
         };
-        iterator begin(){
-            return this;
+
+        iterator begin() const{
+            return iterator(container1.begin(), container2.begin(), *this);
         }
-        iterator end(){
-            return this;
-        }
+
+        iterator end() const {
+            return iterator(container1.end(), container2.end(), *this);
+        };
+
+
     };
 }
