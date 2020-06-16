@@ -63,11 +63,17 @@ TEST_CASE ("accumulate test") {
 
     num= 1;
     for (int i: accumulate(range(2,20), [](int a, int b) { return a*b; })) {
-        num*= (i/num);
-                CHECK(i==num);
+
+       if (num!=0) {
+           num *= (i / num);
+                   CHECK(i == num);
+       }
     }
     for (int i: accumulate(range(-2,30), [](int a, int b) { return a*b; })) {
-        num*= (i/num);
-                CHECK(i==num);
+
+        if (num!=0) {
+            num *= (i / num);
+                    CHECK(i == num);
+        }
     }
 }
